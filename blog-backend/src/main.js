@@ -1,4 +1,6 @@
-require('dotenv').config(); // dotenv 라이브러리를 임포트해서 config()로 .env 파일 호출
+// dotenv 라이브러리를 임포트해서 config()로 .env 파일 호출
+require('dotenv').config();
+
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';

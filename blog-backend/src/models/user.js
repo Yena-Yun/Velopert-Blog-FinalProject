@@ -19,6 +19,7 @@ UserSchema.methods.checkPassword = async function (password) {
   const result = await bcrypt.compare(password, this.hashedPassword);
   return result; // true/false
 };
+
 // 스태틱 메서드 (findByUsername: username으로 데이터를 찾음)
 // (여기서 this는 User)
 UserSchema.statics.findByUsername = function (username) {
@@ -39,6 +40,14 @@ UserSchema.methods.generateToken = function () {
   );
 
   return token;
+};
+
+// hashedPassword 역할: 비밀번호를 검증 후 DB에 저장하는 과정을 안전하게
+// 응답할 데이터에서 역할을 완수한 hashedPassword 필드를 제거
+UserSchema.methods.serialize = function () {
+  const data = this.toJSON();
+  delete data.hashedPassword;
+  return data;
 };
 
 const User = mongoose.model('User', UserSchema);
